@@ -26,7 +26,7 @@ X の最近の投稿、反応、画像や動画付き投稿を調べたいとき
 
 ### AI に導入を任せる
 
-Claude Code や Codex などの AI コーディングツールに以下をそのまま貼り付ければ、クローンから設定ファイルへの追記まで全部やってくれるはず。
+お使いの AI コーディングツールに以下をそのまま貼り付ければ、クローンから設定ファイルへの追記まで全部やってくれるはず。
 
 ```
 以下のMCPサーバーを導入してください。
@@ -39,17 +39,45 @@ Claude Code や Codex などの AI コーディングツールに以下をその
 3. このMCPクライアントの設定ファイルにサーバー設定を追記する
 ```
 
-### 手動で導入する場合
-手動で入れたい場合は以下のコマンドをパワーシェルで順番に実行してください。
-わからないことがあったらAIに聞けばいい感じにやってくれると思います。
+各ツールでの貼り付け先:
 
-```powershell
+| ツール | 貼り付け先 |
+|---|---|
+| Claude Code | チャット欄 |
+| Codex | チャット欄 |
+| Cursor | Agent モードのチャット欄 |
+| Gemini CLI | チャット欄 |
+
+### 手動で導入する場合
+
+わからないことがあったら AI に聞けばいい感じにやってくれると思います。
+
+#### 1. uv のインストール
+
+`uv` が未インストールの場合は先にインストールしてください。
+
+```sh
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+#### 2. リポジトリのクローンと依存関係のインストール
+
+```sh
 git clone https://github.com/Hsky16/yahoo_realtime_search.git
 cd yahoo_realtime_search
 uv sync
 ```
 
-MCP クライアントの設定ファイルに以下を追記します（`/path/to/yahoo_realtime_search` はご自身の環境のパスにしてください）。
+#### 3. MCP クライアントの設定
+
+MCP クライアントの設定ファイルに以下を追記します。
+
+**`/path/to/yahoo_realtime_search` はクローンした実際のディレクトリの絶対パスに書き換えてください。**
+（例: `/home/user/repos/yahoo_realtime_search` や `C:\Users\you\repos\yahoo_realtime_search`）
 
 ```json
 {
@@ -66,6 +94,15 @@ MCP クライアントの設定ファイルに以下を追記します（`/path/
   }
 }
 ```
+
+各ツールの設定ファイルの場所:
+
+| ツール | 設定ファイル |
+|---|---|
+| Claude Code | `~/.claude/claude_desktop_config.json` |
+| Codex | `~/.codex/config.json` |
+| Cursor | `.cursor/mcp.json`（プロジェクト）または `~/.cursor/mcp.json`（グローバル） |
+| Gemini CLI | `~/.gemini/settings.json` |
 
 ## ツール
 
